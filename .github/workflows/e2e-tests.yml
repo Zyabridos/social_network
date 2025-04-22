@@ -25,12 +25,13 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Start the application in dev
-        run: |
-          npm run build -w frontend
-          npm run dev &
+      - name: Build frontend
+        run: npm run build -w frontend
+
+      - name: Start frontend (prod)
+        run: npm run start -w frontend &
         env:
-          NODE_ENV: test
+          NODE_ENV: production
 
       - name: Wait for frontend to be ready
         run: |
@@ -38,7 +39,8 @@ jobs:
         shell: bash
 
       - name: Run Playwright tests
-        run: cd frontend && npx playwright test
+        working-directory: frontend
+        run: npx playwright test
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
