@@ -5,3 +5,11 @@ test-backend:
 
 lint-backend:
 	cd backend && npm run lint
+
+# Local-comands - frontend
+
+test-e2e:
+	cd frontend && npx playwright test tests
+
+lint-frontend:
+	cd frontend && npm run lint

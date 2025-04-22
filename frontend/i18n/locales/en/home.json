@@ -1,0 +1,13 @@
+{
+    "welcome_message": "Velkommen til MiniSocial",
+    "tagline": "Koble til. Del. Vær deg selv.",
+    "signup_button": "Registrer deg",
+    "popular_tags_title": "Populære emner",
+    "suggested_users_title": "Forslåtte brukere",
+    "footer_links": {
+      "about": "Om oss",
+      "contact": "Kontakt",
+      "github": "GitHub",
+      "terms": "Bruksvilkår"
+    }
+  }

@@ -1,0 +1,12 @@
+{
+    "welcome_message": "Добро пожаловать в MiniSocial",
+    "tagline": "Общайся. Делись. Будь собой.",
+    "signup_button": "Зарегистрироваться",
+    "popular_tags_title": "Популярные теги",
+    "footer_links": {
+      "about": "О нас",
+      "contact": "Контакты",
+      "github": "GitHub",
+      "terms": "Условия использования"
+    }
+  }
