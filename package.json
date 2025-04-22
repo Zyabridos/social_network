@@ -1,0 +1,22 @@
+{
+  "name": "taskmanager",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "build": "npm run build -w backend && npm run build -w frontend",
+    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "start": "concurrently \"npm run start -w backend\" \"npm run start -w frontend\"",
+    "test": "npm run test -w backend && npm run test -w frontend"
+  },
+  "devDependencies": {
+    "eslint": "^9.25.1",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-import": "^2.31.0",
+    "prettier": "^3.5.3"
+  }
+}

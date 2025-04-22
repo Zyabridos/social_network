@@ -1,0 +1,30 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "node server/bin/startServer.ts",
+    "migrate": "knex migrate:latest",
+    "setup": "npm install && npm start",
+    "test": "jest",
+    "dev": "NODE_ENV=development nodemon server/bin/startServer.ts",
+    "lint": "eslint ."
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@fastify/cors": "^11.0.1",
+    "@types/jest": "^29.5.14",
+    "fastify": "^5.3.2",
+    "jest": "^29.7.0",
+    "supertest": "^7.1.0",
+    "ts-jest": "^29.3.2"
+  },
+  "devDependencies": {
+    "@types/fastify-cors": "^0.1.0",
+    "@types/node": "^22.14.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
