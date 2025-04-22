@@ -5,7 +5,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const registerPlugins = async (app: FastifyInstance, _opts: any): Promise<void> => {
+const registerPlugins = async (
+  app: FastifyInstance,
+  // eslint-disable-next-line
+  _opts: unknown,
+): Promise<void> => {
   await app.register(fastifyCors, {
     origin: true,
     credentials: true,
