@@ -27,7 +27,7 @@ jobs:
 
       - name: Start the application in dev
         run: |
-          npm run build
+          npm run build -w frontend
           npm run dev &
         env:
           NODE_ENV: test
