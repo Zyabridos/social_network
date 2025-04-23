@@ -1,8 +1,8 @@
 import { FastifyInstance } from 'fastify';
 
-import registerRoutes from '../routes/index';
+import registerRoutes from '../routes/index.ts';
 
-import registerPlugins from './plugins/registerPlugins';
+import registerPlugins from './plugins/registerPlugins.ts';
 
 const init = async (app: FastifyInstance): Promise<FastifyInstance> => {
   await registerPlugins(app, '');

@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 
-import welcome from './welcome';
+import welcome from './health.ts';
 
 const controllers = [welcome];
 

@@ -9,7 +9,13 @@ import prettierPlugin from 'eslint-plugin-prettier';
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
   {
-    ignores: ['__tests__', '.prettier.config.js'],
+    ignores: ['eslint.config.ts', '__tests__', '.prettier.config.js'], 
+  },
+  {
+    files: ['eslint.config.ts'],
+    languageOptions: {
+      parser: undefined,
+    },
   },
   {
     files: ['**/*.ts'],
@@ -29,9 +35,9 @@ export default [
       '@typescript-eslint': tsPlugin,
     },
     rules: {
-      ...tsPlugin.configs.recommended.rules, // ✅ обычный recommended конфиг
-      'no-unused-vars': 'off', // отключаем базовый
-      '@typescript-eslint/no-unused-vars': ['error'], // и включаем TS-aware
+      ...tsPlugin.configs.recommended.rules,
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': ['error'],
     },
   },
   {
@@ -41,7 +47,20 @@ export default [
       sourceType: 'module',
       globals: {
         ...globals.node,
-        ...globals.browser,
+      },
+    },
+  },
+  {
+    files: ['**/*.cjs'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'script',
+      globals: {
+        ...globals.node,
+        __dirname: true,
+        require: true,
+        module: true,
+        process: true,
       },
     },
   },

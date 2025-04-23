@@ -1,12 +1,33 @@
-import buildApp from '../server/index';
+import { describe, test, expect, beforeAll } from 'vitest';
+import buildApp from '../server/index.ts';
 
-test('should return welcome message', async () => {
-  const app = await buildApp();
-  const response = await app.inject({
-    method: 'GET',
-    url: '/api',
+describe('API root and health check', () => {
+  let app: Awaited<ReturnType<typeof buildApp>>;
+
+  beforeAll(async () => {
+    app = await buildApp();
   });
 
-  expect(response.statusCode).toBe(200);
-  expect(JSON.parse(response.body)).toHaveProperty('message');
+  test('should return welcome message at /api', async () => {
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api',
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(JSON.parse(response.body)).toHaveProperty('message');
+  });
+
+  test('should return DB status at /api/health', async () => {
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api/health',
+    });
+
+    expect(response.statusCode).toBe(200);
+    const body = JSON.parse(response.body);
+
+    expect(body).toHaveProperty('status', 'ok');
+    expect(body).toHaveProperty('db', 'connected');
+  });
 });

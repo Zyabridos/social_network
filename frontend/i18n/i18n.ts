@@ -1,12 +1,12 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
-import ru from './locales/ru/index';
-import en from './locales/en/index';
-import no from './locales/no/index';
+import ru from "./locales/ru/index";
+import en from "./locales/en/index";
+import no from "./locales/no/index";
 
-const defaultLanguage = process.env.REACT_APP_I18N_DEFAULT_LANGUAGE || 'en';
+const defaultLanguage = process.env.REACT_APP_I18N_DEFAULT_LANGUAGE || "en";
 
 i18n
   .use(LanguageDetector)
@@ -19,14 +19,14 @@ i18n
       no,
     },
     ns: Object.keys(ru),
-    defaultNS: 'common',
+    defaultNS: "common",
     interpolation: {
       escapeValue: false,
     },
-    pluralSeparator: '_',
+    pluralSeparator: "_",
     detection: {
-      order: ['localStorage'],
-      caches: ['localStorage'],
+      order: ["localStorage"],
+      caches: ["localStorage"],
     },
   });
 

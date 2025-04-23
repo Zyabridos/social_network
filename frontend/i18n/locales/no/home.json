@@ -1,13 +1,13 @@
 {
-    "welcome_message": "Welcome to MiniSocial",
-    "tagline": "Connect. Share. Be yourself.",
-    "signup_button": "Sign up",
-    "popular_tags_title": "Popular Tags",
-    "suggested_users_title": "Suggested Users",
-    "footer_links": {
-      "about": "About us",
-      "contact": "Contact",
-      "github": "GitHub",
-      "terms": "Terms of use"
-    }
+  "welcome_message": "Welcome to MiniSocial",
+  "tagline": "Connect. Share. Be yourself.",
+  "signup_button": "Sign up",
+  "popular_tags_title": "Popular Tags",
+  "suggested_users_title": "Suggested Users",
+  "footer_links": {
+    "about": "About us",
+    "contact": "Contact",
+    "github": "GitHub",
+    "terms": "Terms of use"
   }
+}

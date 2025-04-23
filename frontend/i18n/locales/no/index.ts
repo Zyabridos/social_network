@@ -1,7 +1,7 @@
-import home from './home.json';
+import home from "./home.json";
 
 const no = {
-  home
+  home,
 };
 
 export default no;

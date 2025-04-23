@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "node server/bin/startServer.ts",
-    "migrate": "knex migrate:latest",
+    "start": "node --loader ts-node/esm --experimental-specifier-resolution=node server/bin/startServer.ts",
+    "dev": "nodemon --watch server --exec \"node --loader ts-node/esm --experimental-specifier-resolution=node server/bin/startServer.ts\"",
+    "migrate": "dotenv -e .env.local -- knex migrate:latest --knexfile server/knexfile.js --env development",
     "setup": "npm install && npm start",
-    "test": "jest",
-    "dev": "NODE_ENV=development nodemon server/bin/startServer.ts",
+    "test": "vitest",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
@@ -17,13 +17,16 @@
   "description": "",
   "dependencies": {
     "@fastify/cors": "^11.0.1",
-    "@types/jest": "^29.5.14",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.5.0",
     "eslint": "^9.25.1",
+    "eslint-define-config": "^2.1.0",
     "fastify": "^5.3.2",
-    "jest": "^29.7.0",
-    "supertest": "^7.1.0",
-    "ts-jest": "^29.3.2"
+    "knex": "^3.1.0",
+    "objection": "^3.1.5",
+    "pg": "^8.15.5",
+    "sqlite3": "^5.1.7",
+    "supertest": "^7.1.0"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
@@ -31,12 +34,16 @@
     "@types/node": "^22.14.1",
     "@typescript-eslint/eslint-plugin": "^8.31.0",
     "@typescript-eslint/parser": "^8.31.0",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^8.0.0",
     "es-abstract": "^1.23.9",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.6",
+    "nodemon": "^3.1.10",
     "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
   }
 }
