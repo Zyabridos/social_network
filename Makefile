@@ -19,6 +19,10 @@ start:
 build:
 	cd frontend && npm run build
 
+lint:
+	cd frontend && npm run lint
+	cd backend && npm run lint
+
 format:
 	cd backend && npx prettier --write .
 	cd frontend && npx prettier --write .
@@ -36,12 +40,6 @@ db-migrate:
 db-rollback:
 	cd backend && NODE_ENV=$(ENV) npx knex migrate:rollback
 
-lint-backend:
-	cd backend && npm run lint
-
 # Frontend
 test-e2e:
 	cd frontend && npx playwright test tests
-
-lint-frontend:
-	cd frontend && npm run lint

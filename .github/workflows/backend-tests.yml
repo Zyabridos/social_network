@@ -2,11 +2,9 @@ name: My Backend Tests Workflow
 
 on:
   push:
-    branches:
-      - '**'
+    branches: [main, develop]
   pull_request:
-    branches:
-      - '**'
+    branches: [main, develop]
 
 jobs:
   user-tests:

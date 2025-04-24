@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc",
     "start": "node --loader ts-node/esm --experimental-specifier-resolution=node server/bin/startServer.ts",
     "dev": "nodemon --watch server --exec \"node --loader ts-node/esm --experimental-specifier-resolution=node server/bin/startServer.ts\"",
     "migrate": "dotenv -e .env.local -- knex migrate:latest --knexfile server/knexfile.js --env development",
