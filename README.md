@@ -5,6 +5,9 @@ It is currently under active development.
 
 ---
 
+## 📊 Badges
+[![Maintainability](https://qlty.sh/badges/4d81dab0-854f-4b45-b6a9-78ae216c188f/maintainability.svg)](https://qlty.sh/gh/Zyabridos/projects/social_network)
+
 ## 🚀 CI/CD & Docker
 
 - ✅ All tests are run on **GitHub Actions**.
