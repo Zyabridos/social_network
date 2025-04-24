@@ -12,11 +12,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create .env file
-        run:
-          chmod 644 frontend/.env.test
-          cp frontend/.env.test frontend/.env
-      
+      - name: Install deps
+        run: npm install
+
       - name: Run frontend e2e tests
         env:
           NEXT_PUBLIC_API_URL: http://localhost:5001/api

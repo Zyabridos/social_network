@@ -1,4 +1,4 @@
-name: Push frontend to Docker Hub
+name: Push backend to Docker Hub
 
 on:
   push:
@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install deps
+        run: npm install
 
       - name: Run tests
         env:
