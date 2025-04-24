@@ -1,8 +1,9 @@
-name: push
+name: Push backend to Docker Hub
 
 on:
   push:
-    branches: [main, develop]
+    branches:
+      - main
 
 jobs:
   push:
@@ -12,7 +13,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create .env file
-        run: cp .env.example .env
+        run:
+          chmod 644 backend/.env.test
+          cp backend/.env.test backend/.env
       
       - name: Run test
         run: make test-backend
