@@ -17,7 +17,10 @@ jobs:
           chmod 644 frontend/.env.test
           cp frontend/.env.test frontend/.env
       
-      - name: Run test
+      - name: Run frontend e2e tests
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:5001/api
+          NEXT_PUBLIC_APP_ENV: test
         run: make test-e2e
 
       - name: Set up Docker Buildx
