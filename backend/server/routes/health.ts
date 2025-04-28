@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 
-import db from '../db/initDb.ts';
+import db from '../db/initDb.js';
 
 const routes = async (app: FastifyInstance): Promise<void> => {
   app.get('/api', async (_req, reply) => {

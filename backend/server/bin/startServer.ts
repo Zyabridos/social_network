@@ -1,4 +1,4 @@
-import buildApp from '../index.ts';
+import buildApp from '../index.js';
 
 const PORT = Number(process.env.PORT) || 5001;
 

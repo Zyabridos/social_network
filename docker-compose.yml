@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    env_file:
+      - backend/.env.docker
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.production
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db
+    env_file:
+      - backend/.env.docker
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile.production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    env_file:
+      - frontend/.env.docker

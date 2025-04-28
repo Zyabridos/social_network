@@ -1,6 +1,6 @@
 import fastify from 'fastify';
 
-import init from './plugin/init.ts';
+import init from './plugin/init.js';
 
 const buildApp = async () => {
   const app = fastify({ logger: true });
