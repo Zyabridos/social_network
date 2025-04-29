@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/bin/startServer.js",
-    "dev": "nodemon --watch server --exec \"node --loader ts-node/esm --experimental-specifier-resolution=node server/bin/startServer.ts\"",
+    "dev": "nodemon --watch server --exec \"ts-node server/bin/startServer.ts\"",
     "migrate": "dotenv -e .env.local -- knex migrate:latest --knexfile server/knexfile.js --env development",
     "setup": "npm install && npm start",
     "test": "vitest",

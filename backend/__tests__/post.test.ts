@@ -1,6 +1,6 @@
 import { describe, it, beforeAll, afterAll, expect } from 'vitest';
 import knex from 'knex';
-import knexConfig from '../server/knexfile.js'; 
+import knexConfig from '../server/knexfile.js';
 import buildApp from '../server/index.ts';
 
 let app: Awaited<ReturnType<typeof buildApp>>;
@@ -19,17 +19,17 @@ afterAll(async () => {
 
 describe('Posts API', () => {
   it('POST /api/posts should title, content and id', async () => {
-    const params = { 
-      title:"My first post",
-      content:"Hello, world!",
-    }
+    const params = {
+      title: 'My first post',
+      content: 'Hello, world!',
+    };
     const response = await app.inject({
       method: 'POST',
       url: '/api/posts',
       payload: params,
       headers: {
-        'content-type': 'application/json'
-      }
+        'content-type': 'application/json',
+      },
     });
 
     const post = JSON.parse(response.body);
@@ -53,6 +53,6 @@ describe('Posts API', () => {
 
     const posts = JSON.parse(response.body);
     expect(Array.isArray(posts)).toBe(true);
-    expect(posts.length !== 0)
+    expect(posts.length !== 0);
   });
 });

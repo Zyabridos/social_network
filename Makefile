@@ -1,6 +1,7 @@
 # Docker commands
 docker-prepare:
 	make docker-build-front && make docker-build-back
+	
 docker-build:
 	docker-compose build
 
@@ -34,13 +35,14 @@ test:
 	make test-backend
 
 dev:
-	make start-backend & cd frontend && npm run dev
+	npm run dev
 
 start:
 	cd frontend && npm run start
 	cd backend && npm run start
 
 build:
+	cd backend && npm run build
 	cd frontend && npm run build
 
 lint:

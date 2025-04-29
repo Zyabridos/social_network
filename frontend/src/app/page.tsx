@@ -1,7 +1,7 @@
-import Home from "../components/Home";
+import Post from "../components/Post";
 
 const mainPage = () => {
-  return <Home />;
+  return <Post />;
 };
 
 export default mainPage;
