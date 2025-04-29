@@ -2,11 +2,11 @@ FROM node:20.12.2
 
 WORKDIR /app
 
-COPY backend/package*.json ./
+COPY ./package*.json ./
 
 RUN npm install --omit=dev
 
-COPY backend/ .
+COPY . .
 
 RUN npm run build
 

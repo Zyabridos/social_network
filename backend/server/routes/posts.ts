@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 
-import { ValidationErrorType } from '../types/errors';
+import { ValidationErrorType } from '../types/errors.js';
 
 export default async (app: FastifyInstance): Promise<void> => {
   const { Post } = app.models;

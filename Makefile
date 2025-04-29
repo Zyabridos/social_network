@@ -1,4 +1,6 @@
 # Docker commands
+docker-prepare:
+	make docker-build-front && make docker-build-back
 docker-build:
 	docker-compose build
 
@@ -16,16 +18,10 @@ docker-restart:
 	make docker-start
 
 docker-build-front:
-	docker build -t social-network-frontend -f ./frontend/Dockerfile.production ./frontend
-
-docker-run-front:
-	docker run -d --name social-network-frontend -p 3000:3000 social-network-frontend
+	cd frontend && docker build -t social-network-frontend -f Dockerfile.production .
 
 docker-build-back:
-	docker build -t social-network-backend -f ./backend/Dockerfile.production ./backend
-
-docker-run-back:
-	docker run -d --name social-network-backend -p 5001:5001 social-network-backend
+	cd backend && docker build -t social-network-backend -f Dockerfile.production .
 # Common local commands
 install:
 	npm install
