@@ -1,7 +1,7 @@
-import Post from "../components/Post";
+import PostsList from "../Lists/PostsList";
 
 const mainPage = () => {
-  return <Post />;
+  return <PostsList />;
 };
 
 export default mainPage;
