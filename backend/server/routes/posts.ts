@@ -1,5 +1,7 @@
 import { FastifyInstance } from 'fastify';
 
+import { ValidationErrorType } from '../types/errors';
+
 export default async (app: FastifyInstance): Promise<void> => {
   const { Post } = app.models;
 
@@ -17,8 +19,8 @@ export default async (app: FastifyInstance): Promise<void> => {
       const newPost = await Post.query().insert(req.body);
       reply.code(201).send(newPost);
     } catch (error) {
-      const data = (error as { data?: any }).data;
+      const data = (error as ValidationErrorType).data;
       reply.code(422).send({ error: 'Validation failed', errors: data ?? error });
     }
-  })
+  });
 };

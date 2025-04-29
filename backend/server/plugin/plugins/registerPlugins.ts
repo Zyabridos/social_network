@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 // @ts-expect-error - for now it is a .js file
 import knexConfig from '../../knexfile.js';
 import models from '../../models/index.js';
-import { Environment } from '../../types/common.js'
+import { Environment } from '../../types/common.js';
 
 dotenv.config();
 
