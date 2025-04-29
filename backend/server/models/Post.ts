@@ -5,10 +5,11 @@ export default class Post extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['name'],
+    required: ['title', 'content'],
     properties: {
       id: { type: 'integer' },
-      name: { type: 'string', minLength: 3 },
+      title: { type: 'string', minLength: 3 },
+      content: { type: 'string', minLength: 3 },
       createdAt: { type: 'string', format: 'date-time' },
     },
   };

@@ -1,7 +1,8 @@
 export async function up(knex) {
   await knex.schema.createTable('posts', (table) => {
     table.increments('id').primary();
-    table.string('name').notNullable();
+    table.string('title').notNullable();
+    table.text('content').notNullable();
     table.timestamp('createdAt').defaultTo(knex.fn.now());
   });
 }
