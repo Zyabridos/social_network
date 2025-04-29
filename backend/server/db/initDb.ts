@@ -1,8 +1,8 @@
 import knex from 'knex';
 import { Model } from 'objection';
 
-// @ts-expect-error: knexfile is CommonJS and has no default export
-import knexConfig from '../../knexfile.cjs';
+// @ts-expect-error - for now it is a .js file
+import knexConfig from '../knexfile.js';
 import 'dotenv/config';
 
 type Environment = 'development' | 'test' | 'production';

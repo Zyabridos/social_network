@@ -9,7 +9,7 @@ import prettierPlugin from 'eslint-plugin-prettier';
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
   {
-    ignores: ['eslint.config.ts', '__tests__', '.prettier.config.js'], 
+    ignores: ['eslint.config.ts', '__tests__', '.prettier.config.js', 'dist'], 
   },
   {
     files: ['eslint.config.ts'],
