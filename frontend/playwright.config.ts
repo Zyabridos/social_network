@@ -7,6 +7,7 @@ export default defineConfig({
   expect: {
     timeout: 10000,
   },
+  reporter: [["html", { outputFolder: "playwright-report", open: "never" }]],
   // projects: [
   //   {
   //     name: "chromium",
