@@ -4,10 +4,11 @@ WORKDIR /app
 
 COPY ./package*.json ./
 
-RUN npm install --omit=dev
+RUN npm install
 
-# COPY frontend/ .
 COPY . .
+
+RUN npx playwright install --with-deps
 
 RUN npm run build
 

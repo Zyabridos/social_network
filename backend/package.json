@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc && cp server/knexfile.js dist/server/knexfile.js && cp -r server/db/migrations dist/server/db/",
     "start": "node dist/server/bin/startServer.js",
-    "dev": "nodemon --watch server --exec \"ts-node server/bin/startServer.ts\"",
+    "dev": "nodemon --watch server --exec \"node --loader ts-node/esm server/bin/startServer.ts\"",
     "migrate": "dotenv -e .env.local -- knex migrate:latest --knexfile server/knexfile.js --env development",
     "migrate:ci": "dotenv -e .env.docker -- knex migrate:latest --knexfile server/knexfile.js --env docker",
     "setup": "npm install && npm start",
