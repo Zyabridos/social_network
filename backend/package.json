@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc && cp server/knexfile.js dist/knexfile.js",
-    "start": "node dist/bin/startServer.js",
+    "build": "tsc && cp server/knexfile.js dist/server/knexfile.js && cp -r server/db/migrations dist/server/db/",
+    "start": "node dist/server/bin/startServer.js",
     "dev": "nodemon --watch server --exec \"ts-node server/bin/startServer.ts\"",
     "migrate": "dotenv -e .env.local -- knex migrate:latest --knexfile server/knexfile.js --env development",
-    "migrate:ci": "knex migrate:latest --knexfile server/knexfile.js --env production",
+    "migrate:ci": "dotenv -e .env.docker -- knex migrate:latest --knexfile server/knexfile.js --env docker",
     "setup": "npm install && npm start",
     "test": "vitest",
     "lint": "eslint .",
@@ -19,6 +19,7 @@
   "description": "",
   "dependencies": {
     "@fastify/cors": "^11.0.1",
+    "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.5.0",
     "eslint": "^9.25.1",
@@ -29,8 +30,7 @@
     "objection-unique": "^1.2.2",
     "pg": "^8.15.5",
     "sqlite3": "^5.1.7",
-    "supertest": "^7.1.0",
-    "ts-node": "^10.9.2"
+    "supertest": "^7.1.0"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
@@ -46,6 +46,7 @@
     "eslint-plugin-prettier": "^5.2.6",
     "nodemon": "^3.1.10",
     "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "vitest": "^3.1.2"
   }

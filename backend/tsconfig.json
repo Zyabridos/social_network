@@ -9,8 +9,7 @@
     "skipLibCheck": true,
     "types": ["node"],
     "outDir": "dist",
-    "rootDir": "server"
+    "rootDir": "."
   },
-  "include": ["server", "server/types"],
-  "exclude": ["server/knexfile.js"]
+  "include": ["server", "scripts"],
 }
