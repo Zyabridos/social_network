@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp server/knexfile.js dist/knexfile.js",
     "start": "node dist/bin/startServer.js",
     "dev": "nodemon --watch server --exec \"ts-node server/bin/startServer.ts\"",
     "migrate": "dotenv -e .env.local -- knex migrate:latest --knexfile server/knexfile.js --env development",

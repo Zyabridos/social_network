@@ -11,5 +11,6 @@
     "outDir": "dist",
     "rootDir": "server"
   },
-  "include": ["server", "server/types"]
+  "include": ["server", "server/types"],
+  "exclude": ["server/knexfile.js"]
 }
