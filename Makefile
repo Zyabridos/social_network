@@ -15,7 +15,7 @@ docker-seed:
 	docker exec -it social_network-backend-1 node dist/scripts/seed.js
 
 docker-build:
-	docker-compose build
+	docker compose build
 
 docker-run:
 	docker compose up -d
