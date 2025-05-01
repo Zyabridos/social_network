@@ -7,8 +7,8 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: ./Dockerfile.production
+      context: .
+      dockerfile: backend/Dockerfile.production
     ports:
       - "5001:5001"
     depends_on:
