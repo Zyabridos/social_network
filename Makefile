@@ -30,6 +30,9 @@ install:
 setup:
 	make install && make db-migrate
 
+prepare:
+	cd backend && cp -n .env.example .env || true
+
 test:
 	make test-e2e
 	make test-backend

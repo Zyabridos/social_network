@@ -7,6 +7,7 @@
     "start": "node dist/bin/startServer.js",
     "dev": "nodemon --watch server --exec \"ts-node server/bin/startServer.ts\"",
     "migrate": "dotenv -e .env.local -- knex migrate:latest --knexfile server/knexfile.js --env development",
+    "migrate:ci": "knex migrate:latest --knexfile server/knexfile.js --env production",
     "setup": "npm install && npm start",
     "test": "vitest",
     "lint": "eslint .",

@@ -10,6 +10,7 @@ jobs:
   test:
     timeout-minutes: 10
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -19,7 +20,7 @@ jobs:
       with:
         node-version: lts/*
 
-    - name: Install dependencies
+    - name: Install dependencies (root)
       run: npm install
 
     - name: Install frontend dependencies
@@ -36,6 +37,12 @@ jobs:
     - name: Build backend
       run: npm run build -w backend
 
+    - name: Prepare database (migrations)
+      run: npm run migrate:ci -w backend
+      env:
+        NODE_ENV: production
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
     - name: Start backend (prod)
       run: npm run start -w backend &
       env:
@@ -49,7 +56,6 @@ jobs:
       run: |
         timeout 30s bash -c 'until curl -sSf http://localhost:5001/api/posts >/dev/null; do sleep 1; done'
       shell: bash
-
 
     - name: Start frontend (prod)
       run: npm run start -w frontend &
