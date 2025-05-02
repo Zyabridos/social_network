@@ -60,7 +60,7 @@ jobs:
       run: make docker-run
 
     - name: Run DB migrations
-      run: make docker-migrate
+      run: docker exec -e NODE_ENV=docker social_network-backend-1 node dist/scripts/migrate.js
 
     - name: Seed the database
       run: make docker-seed
