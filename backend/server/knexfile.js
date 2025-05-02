@@ -14,6 +14,17 @@ const envPath =
 
 loadDotenv({ path: envPath });
 
+const {
+  POSTGRES_USER,
+  POSTGRES_PASSWORD,
+  POSTGRES_DB,
+  POSTGRES_HOST = 'localhost',
+  POSTGRES_PORT = '5432',
+} = process.env;
+
+const dbUrl = process.env.DATABASE_URL
+  || `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
+
 const migrations = {
   directory: path.join(__dirname, 'db', 'migrations'),
 };
@@ -33,12 +44,12 @@ const shared = {
 const configObject = {
   docker: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: dbUrl,
     ...shared,
   },
   development: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: dbUrl,
     ...shared,
     pool: {
       min: 2,
@@ -54,7 +65,7 @@ const configObject = {
   production: {
     client: 'pg',
     connection: {
-      connectionString: process.env.DATABASE_URL,
+      connectionString: dbUrl,
       ssl: { rejectUnauthorized: false },
     },
     ...shared,
