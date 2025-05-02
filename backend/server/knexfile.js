@@ -1,14 +1,16 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+
 import { config as loadDotenv } from 'dotenv';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const envPath = process.env.NODE_ENV === 'docker'
-  ? path.resolve(__dirname, '../.env.docker')
-  : path.resolve(__dirname, '../.env');
+const envPath =
+  process.env.NODE_ENV === 'docker'
+    ? path.resolve(__dirname, '../.env.docker')
+    : path.resolve(__dirname, '../.env');
 
 loadDotenv({ path: envPath });
 

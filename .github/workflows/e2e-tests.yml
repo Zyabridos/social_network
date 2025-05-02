@@ -30,14 +30,24 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Create .env file for docker-compose
+    - name: Create backend .env.docker
       run: |
-        cat <<EOF > .env
+        mkdir -p backend
+        cat <<EOF > backend/.env.docker
         POSTGRES_USER=${{ secrets.POSTGRES_USER }}
         POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
         POSTGRES_DB=${{ secrets.POSTGRES_DB }}
         JWT_SECRET=${{ secrets.JWT_SECRET }}
         SESSION_SECRET=${{ secrets.SESSION_SECRET }}
+        EOF
+
+    - name: Create frontend .env.docker
+      run: |
+        mkdir -p frontend
+        cat <<EOF > frontend/.env.docker
+        NEXT_PUBLIC_API_URL=http://localhost:5001/api
+        NEXT_PUBLIC_APP_ENV=production
+        NEXT_PUBLIC_API_BASE=http://localhost:5001
         EOF
 
     - name: Set up Docker Buildx
