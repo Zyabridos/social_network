@@ -9,10 +9,10 @@ docker-prepare:
 	make docker-build-front && make docker-build-back
 
 docker-migrate:
-	docker exec -it social_network-backend-1 node dist/scripts/migrate.js
+	docker exec social_network-backend-1 node dist/scripts/migrate.js
 
 docker-seed:
-	docker exec -it social_network-backend-1 node dist/scripts/seed.js
+	docker exec social_network-backend-1 node dist/scripts/seed.js
 
 docker-build:
 	docker compose build
