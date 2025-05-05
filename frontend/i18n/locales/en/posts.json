@@ -1,0 +1,7 @@
+{
+  "title": "Posts",
+  "errors": {
+    "ferching": "Error during fetching posts:"
+  },
+  "noPosts": "There are no posts yet"
+}

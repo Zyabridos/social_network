@@ -1,0 +1,7 @@
+{
+  "title": "Posts",
+  "errors": {
+    "ferching": "Feil under henting av innlegg:"
+  },
+  "noPosts": "Ingen innlegg ennå"
+}
