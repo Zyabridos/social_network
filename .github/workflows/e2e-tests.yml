@@ -46,9 +46,9 @@ jobs:
       run: |
         mkdir -p frontend
         cat <<EOF > frontend/.env.docker
-        NEXT_PUBLIC_API_URL=http://localhost:5001/api
         NEXT_PUBLIC_APP_ENV=production
-        NEXT_PUBLIC_API_BASE=http://localhost:5001
+        NEXT_PUBLIC_API_URL=http://backend:5001/api
+        NEXT_PUBLIC_API_BASE=http://backend:5001
         EOF
 
     - name: Set up Docker Buildx
