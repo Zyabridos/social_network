@@ -18,8 +18,8 @@ const {
   POSTGRES_USER,
   POSTGRES_PASSWORD,
   POSTGRES_DB,
-  POSTGRES_HOST = 'localhost',
-  POSTGRES_PORT = '5432',
+  POSTGRES_HOST = 'localhost', // default value - if the var was not passed as arg
+  POSTGRES_PORT = '5432', // default value
 } = process.env;
 
 const dbUrl = process.env.DATABASE_URL
