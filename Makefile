@@ -1,6 +1,18 @@
+NEXT_PUBLIC_API_URL ?= http://localhost:5001/api
+NEXT_PUBLIC_API_BASE ?= http://localhost:5001
+
 # Docker commands
+
 docker-build-front:
-	cd frontend && docker build -t social-network-frontend -f Dockerfile.production .
+	docker build \
+		-t social-network-frontend \
+		-f frontend/Dockerfile.production \
+		--build-arg NEXT_PUBLIC_API_URL=$(NEXT_PUBLIC_API_URL) \
+		--build-arg NEXT_PUBLIC_API_BASE=$(NEXT_PUBLIC_API_BASE) \
+		frontend
+
+# docker-build-front:
+# 	cd frontend && docker build -t social-network-frontend -f Dockerfile.production .
 
 docker-build-back:
 	cd backend && docker build -t social-network-backend -f Dockerfile.production .
@@ -30,7 +42,8 @@ docker-clean:
 
 docker-restart:
 	make docker-stop
-	make docker-build
+	make docker-build-front
+	make docker-build-back
 	make docker-run
 	make docker-migrate
 	make docker-seed

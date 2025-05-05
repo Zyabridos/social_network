@@ -20,7 +20,10 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: ./Dockerfile.production
+      dockerfile: Dockerfile.production
+      args:
+        NEXT_PUBLIC_API_URL: http://backend:5001/api
+        NEXT_PUBLIC_API_BASE: http://backend:5001
     ports:
       - "3000:3000"
     depends_on:
