@@ -1,7 +1,3 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-import { config as loadDotenv } from 'dotenv';
 import knex, { Knex } from 'knex';
 
 // @ts-expect-error: knexfile is JS
@@ -9,14 +5,7 @@ import knexConfig from '../server/knexfile.js';
 
 import waitForDbConnection from './waitForDb.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootPath = path.resolve(__dirname, '..', '..');
-
 const env = process.env.NODE_ENV || 'development';
-const envFile = env === 'docker' ? 'backend/.env.docker' : 'backend/.env.local';
-
-loadDotenv({ path: path.join(rootPath, envFile) });
 
 const config = knexConfig[env] as Knex.Config;
 if (!config) {

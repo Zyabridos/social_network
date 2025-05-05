@@ -59,12 +59,9 @@ jobs:
 
     - name: Run containers
       run: make docker-run
-
-    - name: Print .env.docker
-      run: cat backend/.env.docker
-
+    
     - name: Run DB migrations
-      run: docker exec -e NODE_ENV=docker social_network-backend-1 node dist/scripts/migrate.js
+      run: docker exec -e NODE_ENV=docker social_network-backend-1 node -r dotenv/config dist/scripts/migrate.js
 
     - name: Seed the database
       run: docker exec -e NODE_ENV=docker social_network-backend-1 node dist/scripts/seed.js
