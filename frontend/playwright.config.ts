@@ -1,4 +1,5 @@
 import { defineConfig } from "@playwright/test";
+import path from "path";
 
 export default defineConfig({
   testDir: "./tests",
@@ -7,7 +8,9 @@ export default defineConfig({
   expect: {
     timeout: 10000,
   },
-  reporter: [["html", { outputFolder: "playwright-report", open: "never" }]],
+  reporter: [
+    ["html", { outputFolder: path.resolve(__dirname, "playwright-report"), open: "never" }],
+  ],
   // projects: [
   //   {
   //     name: "chromium",

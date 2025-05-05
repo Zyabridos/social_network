@@ -2,13 +2,14 @@ import { test, expect } from '@playwright/test';
 
 test('has first post on the main page', async ({ page }) => {
   await page.goto('http://localhost:3000/');
-  await page.waitForSelector('[data-name="post-title-1"]');
+  await page.waitForSelector('[data-name="post-title-1"]', { timeout: 10000 });
 
   const heading = page.locator('[data-name="post-title-1"]');
   const firstContent = page.locator('[data-name="post-content-1"]');
 
   await expect(heading).toBeVisible();
   await expect(firstContent).toHaveText('Hello, world!');
+  await page.screenshot({ path: 'screenshot.png', fullPage: true });
 });
 
 test('expands content on click', async ({ page }) => {
@@ -25,4 +26,5 @@ test('expands content on click', async ({ page }) => {
 
   expect(afterHeight).toBeGreaterThan(beforeHeight);
   await expect(button).toHaveText(/hide/i);
+  await page.screenshot({ path: 'screenshot.png', fullPage: true });
 });

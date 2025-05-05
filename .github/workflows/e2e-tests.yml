@@ -64,7 +64,7 @@ jobs:
       run: docker exec -e NODE_ENV=docker social_network-backend-1 node dist/scripts/migrate.js
 
     - name: Seed the database
-      run: make docker-seed
+      run: docker exec -e NODE_ENV=docker social_network-backend-1 node dist/scripts/seed.js
 
     - name: Wait for frontend to be ready
       run: |
