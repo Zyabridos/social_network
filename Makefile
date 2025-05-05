@@ -33,6 +33,7 @@ docker-restart:
 	make docker-build
 	make docker-run
 	make docker-migrate
+	make docker-seed
 	
 # Common local commands
 install:

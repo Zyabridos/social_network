@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 
-type Props = {
+type CustomProps = {
   children: string;
   onToggle?: (expanded: boolean) => void;
 };
 
-const ExpandableText = ({ children, onToggle }: Props) => {
+type Props = CustomProps & Omit<React.HTMLAttributes<HTMLParagraphElement>, 'onToggle'>;
+
+const ExpandableText = ({ children, onToggle, ...props }: Props) => {
   const [expanded, setExpanded] = useState(false);
   const isLong = children.length > 120;
 
@@ -23,7 +25,7 @@ const ExpandableText = ({ children, onToggle }: Props) => {
         className={`text-gray-700 text-base transition-all duration-300 ${
           !expanded && isLong ? "line-clamp-3" : "line-clamp-none"
         }`}
-        data-name="post-content"
+        {...props}
       >
         {children}
       </p>

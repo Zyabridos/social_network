@@ -2,28 +2,27 @@ import { test, expect } from '@playwright/test';
 
 test('has first post on the main page', async ({ page }) => {
   await page.goto('http://localhost:3000/');
+  await page.waitForSelector('[data-name="post-title-1"]');
 
-  const heading = await page.getByRole('heading', { name: 'My first post' });
-  const firstContent = page.locator('.flex .text-base').nth(0);
+  const heading = page.locator('[data-name="post-title-1"]');
+  const firstContent = page.locator('[data-name="post-content-1"]');
 
-  await expect(firstContent).toHaveText('Hello, world!');
   await expect(heading).toBeVisible();
+  await expect(firstContent).toHaveText('Hello, world!');
 });
 
 test('expands content on click', async ({ page }) => {
   await page.goto('http://localhost:3000/');
+  await page.waitForSelector('[data-name="post-3"]');
 
-  // find third post, since that is the one with long text
-  const post = page.locator('.flex > div').nth(2);
-  // temp solution - evnt add testId or data-name
-  const content = post.locator('p.text-base');
-  const button = post.locator('button');
+  const post = page.locator('[data-name="post-3"]');
+  const content = post.locator('[data-name="post-content-3"]');
+  const button = post.getByRole('button');
 
   const beforeHeight = await content.evaluate(el => el.clientHeight);
   await button.click();
   const afterHeight = await content.evaluate(el => el.clientHeight);
 
   expect(afterHeight).toBeGreaterThan(beforeHeight);
-
   await expect(button).toHaveText(/hide/i);
 });

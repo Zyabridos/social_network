@@ -16,9 +16,15 @@ const PostCard = ({ post }: Props) => {
       className={`w-150 rounded shadow-lg border border-gray-200 bg-white transition-all duration-300 p-6 ${
         expanded ? "max-h-none" : "max-h-72 overflow-hidden"
       }`}
+      data-name={`post-${post.id}`}
+      data-expanded={expanded}
     >
-      <h2 className="font-bold text-xl mb-2">{post.title}</h2>
-      <ExpandableText onToggle={setExpanded}>{post.content}</ExpandableText>
+      <h2 className="font-bold text-xl mb-2" data-name={`post-title-${post.id}`}>
+        {post.title}
+      </h2>
+      <ExpandableText onToggle={setExpanded} data-name={`post-content-${post.id}`}>
+        {post.content}
+      </ExpandableText>
     </div>
   );
 };
