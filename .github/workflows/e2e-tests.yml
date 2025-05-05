@@ -60,14 +60,14 @@ jobs:
     - name: Run containers
       run: make docker-run
 
-    - name: Debug API availability
-      run: docker exec social_network-frontend-1 curl -i http://backend:5001/api/posts
-    
     - name: Run DB migrations
       run: docker exec -e NODE_ENV=docker social_network-backend-1 node -r dotenv/config dist/scripts/migrate.js
 
     - name: Seed the database
       run: docker exec -e NODE_ENV=docker social_network-backend-1 node -r dotenv/config dist/scripts/seed.js
+
+    - name: Debug API availability
+      run: docker exec social_network-frontend-1 curl -i http://backend:5001/api/posts
 
     - name: Wait for frontend to be ready from within container
       run: |
@@ -75,6 +75,10 @@ jobs:
 
     - name: Run Playwright tests (inside frontend container)
       run: docker exec -e CI=true social_network-frontend-1 npx playwright test
+
+    - name: Show backend logs
+      if: always()
+      run: docker logs social_network-backend-1
 
     - name: Copy Playwright report from container
       if: always()
