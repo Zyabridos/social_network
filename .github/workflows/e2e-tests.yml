@@ -75,12 +75,9 @@ jobs:
     - name: Wait for frontend to be ready from within container
       run: |
         docker exec social_network-frontend-1 bash -c 'until curl -sSf http://localhost:3000 > /dev/null; do sleep 1; done'
-    
-    - name: Debug API availability
-      run: docker exec social_network-frontend-1 curl -i http://backend:5001/api/posts
-
+        
     - name: Run Playwright tests (inside frontend container)
-      run: docker exec -e CI=true social_network-frontend-1 npx playwright test
+      run: docker exec -e CI=true -e PLAYWRIGHT_BASE_URL=http://localhost:3000 social_network-frontend-1 npx playwright test
 
     - name: Show backend logs
       if: always()

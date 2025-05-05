@@ -1,5 +1,20 @@
 import { test, expect } from '@playwright/test';
 
+test("logs frontend API url", async ({ page }) => {
+  page.on("console", (msg) => {
+    if (msg.type() === "log") {
+      console.log("[browser log]:", msg.text());
+    }
+  });
+
+  await page.goto("http://localhost:3000/");
+  await page.waitForLoadState("networkidle");
+
+
+  await page.waitForTimeout(2000);
+});
+
+
 test('has first post on the main page', async ({ page }) => {
   await page.goto('http://localhost:3000/');
   await page.waitForSelector('[data-name="post-title-1"]', { timeout: 10000 });
