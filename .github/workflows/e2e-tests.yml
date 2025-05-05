@@ -51,6 +51,9 @@ jobs:
         NEXT_PUBLIC_API_BASE=http://backend:5001
         EOF
 
+    - name: Print ENV inside container
+      run: docker exec social_network-backend-1 printenv | grep POSTGRES
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
