@@ -64,7 +64,7 @@ jobs:
       run: docker exec -e NODE_ENV=docker social_network-backend-1 node -r dotenv/config dist/scripts/migrate.js
 
     - name: Seed the database
-      run: docker exec -e NODE_ENV=docker social_network-backend-1 node dist/scripts/seed.js
+      run: docker exec -e NODE_ENV=docker social_network-backend-1 node -r dotenv/config dist/scripts/seed.js
 
     - name: Wait for frontend to be ready from within container
       run: |
@@ -72,6 +72,10 @@ jobs:
 
     - name: Run Playwright tests (inside frontend container)
       run: docker exec -e CI=true social_network-frontend-1 npx playwright test
+
+    - name: Copy Playwright report from container
+      if: always()
+      run: docker cp social_network-frontend-1:/app/playwright-report ./frontend/playwright-report
 
     - name: Upload Playwright report
       if: always()

@@ -1,29 +1,26 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { exit } from 'process';
-
-import { config as loadDotenv } from 'dotenv';
 import knex from 'knex';
 
-// @ts-expect-error: for now knexfile is JS, no types
+// @ts-expect-error: knexfile is JS, no types
 import knexConfig from '../server/knexfile.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-loadDotenv({ path: path.resolve(__dirname, '../.env.docker'), override: true });
-
 const env = process.env.NODE_ENV || 'development';
-// const env = 'docker';
 const config = knexConfig[env];
+
+if (!config) {
+  console.error(`❌ No knex config found for NODE_ENV=${env}`);
+  process.exit(1);
+}
+
 const db = knex(config);
 
-try {
-  console.log(`Seeding for env: ${env}`);
-  await db.seed.run();
-  console.log('✅ Seeding done!');
-  exit(0);
-} catch (err) {
-  console.error('❌ Seeding error:', err);
-  exit(1);
-}
+(async () => {
+  try {
+    console.log(`Seeding for env: ${env}`);
+    await db.seed.run();
+    console.log('✅ Seeding done!');
+    process.exit(0);
+  } catch (err) {
+    console.error('❌ Seeding error:', err);
+    process.exit(1);
+  }
+})();
