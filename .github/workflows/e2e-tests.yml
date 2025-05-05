@@ -66,9 +66,9 @@ jobs:
     - name: Seed the database
       run: docker exec -e NODE_ENV=docker social_network-backend-1 node dist/scripts/seed.js
 
-    - name: Wait for frontend to be ready
+    - name: Wait for frontend to be ready from within container
       run: |
-        timeout 60s bash -c 'until curl -sSf http://localhost:3000 >/dev/null; do sleep 1; done'
+        docker exec social_network-frontend-1 bash -c 'until curl -sSf http://localhost:3000 > /dev/null; do sleep 1; done'
 
     - name: Run Playwright tests (inside frontend container)
       run: docker exec -e CI=true social_network-frontend-1 npx playwright test
