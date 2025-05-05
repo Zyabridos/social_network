@@ -51,6 +51,9 @@ jobs:
         NEXT_PUBLIC_API_BASE=http://backend:5001
         EOF
 
+    - name: Debug .frontend/.env.docker
+      run: cat frontend/.env.docker
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
