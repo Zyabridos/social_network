@@ -22,9 +22,9 @@ const {
   POSTGRES_PORT = '5432', // default value
 } = process.env;
 
-const dbUrl = process.env.DATABASE_URL
-  || `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
-
+const dbUrl =
+  process.env.DATABASE_URL ||
+  `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
 const migrations = {
   directory: path.join(__dirname, 'db', 'migrations'),
 };
