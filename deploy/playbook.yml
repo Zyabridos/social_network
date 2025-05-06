@@ -1,0 +1,58 @@
+- name: Install Frontend Conrainer on webservers
+  hosts: webservers
+  become: true
+
+  roles:
+    - role: geerlingguy.pip
+      tags: setup
+    - role: geerlingguy.docker
+      tags: setup
+
+  tasks:
+    - name: Generate .env files for Backend and Frontend
+      ansible.builtin.template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: '0600'
+      loop:
+        - { src: "templates/backend.env.j2", dest: "/root/backend.env" }
+        - { src: "templates/frontend.env.j2", dest: "/root/frontend.env" }
+      tags: deploy
+
+    - name: Remove existing Frontend and Backend containers
+      community.docker.docker_container:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - frontend
+        - backend
+      failed_when: false
+      tags: deploy
+
+    - name: Deploy Frontend container
+      community.docker.docker_container:
+        name: frontend
+        image: "{{ frontend_image }}"
+        restart_policy: always
+        ports:
+          - "{{ frontend_port }}:3000"
+        env_file: /root/frontend.env
+      tags: deploy
+
+    - name: Deploy Backend container
+      community.docker.docker_container:
+        name: backend
+        image: "{{ backend_image }}"
+        restart_policy: always
+        ports:
+          - "{{ backend_port }}:5001"
+        env_file: /root/backend.env
+      tags: deploy
+
+- name: Install Datadog Agent
+  hosts: webservers
+  become: true
+
+  roles:
+    - role: datadog.datadog
+      tags: monitoring

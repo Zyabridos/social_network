@@ -1,0 +1,50 @@
+frontend_image: zyabridos/social_network_frontend:latest
+backend_image: zyabridos/social_network_backend:latest
+
+frontend_port: 3001
+backend_port: 5001
+frontend_container_name: frontend
+backend_container_name: backend
+
+pip_install_packages:
+  - name: docker
+
+db_host: db-postgresql-for-ansible-project-do-user-21204823-0.i.db.ondigitalocean.com
+db_port: 25060
+db_name: defaultdb
+db_user: doadmin
+db_password: "{{ vault_db_password }}"
+
+backend_env_vars:
+  BACKEND_DATABASE_TYPE: postgresql
+  BACKEND_DATABASE_HOST: "{{ db_host }}"
+  BACKEND_DATABASE_PORT_NUMBER: "{{ db_port }}"
+  BACKEND_DATABASE_NAME: "{{ db_name }}"
+  BACKEND_DATABASE_USER: "{{ db_user }}"
+  BACKEND_DATABASE_PASSWORD: "{{ db_password }}"
+
+# Datadog
+datadog_api_key: "{{ vault_datadog_api_key }}"
+
+datadog_config:
+  tags:
+    - env:production
+    - role:web
+  log_enabled: true
+  apm_config:
+    enabled: true
+
+datadog_checks:
+  http_check:
+    init_config: {}
+    instances:
+      - name: Frontend Homepage
+        url: "http://localhost:{{ frontend_port }}"
+        timeout: 5
+        method: GET
+        http_response_status_code: 200
+        tags:
+          - service:frontend
+
+datadog_manage_config: false
+datadog_disable_untracked_checks: true

@@ -11,9 +11,6 @@ docker-build-front:
 		--build-arg NEXT_PUBLIC_API_BASE=$(NEXT_PUBLIC_API_BASE) \
 		frontend
 
-# docker-build-front:
-# 	cd frontend && docker build -t social-network-frontend -f Dockerfile.production .
-
 docker-build-back:
 	cd backend && docker build -t social-network-backend -f Dockerfile.production .
 
@@ -47,7 +44,40 @@ docker-restart:
 	make docker-run
 	make docker-migrate
 	make docker-seed
-	
+
+# Ansible commands
+ping:
+	ansible deploy/webservers -m ping
+
+prepare-deploy:
+	ansible-playbook deploy/playbook.yml --tags setup --ask-vault-pass
+
+install-roles:
+	ansible-galaxy install -r deploy/requirements.yml
+
+deploy:
+	ansible-playbook deploy/playbook.yml --tags deploy --ask-vault-pass
+
+debug:
+	ansible-playbook deploy/playbook.yml --tags debug --ask-vault-pass
+
+vault-edit:
+	ansible-vault edit ./deploy/group_vars/webservers/vault.yml
+
+vault-view:
+	ansible-vault view ./deploy/group_vars/webservers/vault.yml
+
+clean-redmine:
+	ansible webservers -a "docker rm -f redmine || true"
+
+check:
+	ansible webservers -a "curl -s -o /dev/null -w '%{http_code}' http://localhost:3000"
+
+setup-ansible:
+	make install-roles
+	ansible webservers -m ping
+	ansible-playbook playbook.yml --tags setup --ask-vault-pass	
+
 # Common local commands
 install:
 	npm install
