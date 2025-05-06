@@ -1,5 +1,5 @@
 export async function up(knex) {
-  await knex.schema.createTable('posts', (table) => {
+  return knex.schema.createTable('posts', (table) => {
     table.increments('id').primary();
     table.string('title').notNullable();
     table.text('content').notNullable();
@@ -8,5 +8,5 @@ export async function up(knex) {
 }
 
 export async function down(knex) {
-  await knex.schema.dropTableIfExists('posts');
+  return knex.schema.dropTableIfExists('posts');
 }

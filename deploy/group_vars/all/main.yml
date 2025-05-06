@@ -11,7 +11,7 @@ pip_install_packages:
 
 db_host: db-postgresql-for-ansible-project-do-user-21204823-0.i.db.ondigitalocean.com
 db_port: 25060
-db_name: defaultdb
+db_name: social_network
 db_user: doadmin
 db_password: "{{ vault_db_password }}"
 

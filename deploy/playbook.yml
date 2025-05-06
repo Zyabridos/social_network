@@ -49,6 +49,12 @@
         env_file: /root/backend.env
       tags: deploy
 
+    - name: Run DB migrations inside backend container
+      community.docker.docker_container_exec:
+        container: backend
+        command: node dist/scripts/migrate.js
+      tags: deploy
+
 - name: Install Datadog Agent
   hosts: webservers
   become: true

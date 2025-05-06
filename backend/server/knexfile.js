@@ -1,7 +1,6 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-
 import { config as loadDotenv } from 'dotenv';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -18,13 +17,20 @@ const {
   POSTGRES_USER,
   POSTGRES_PASSWORD,
   POSTGRES_DB,
-  POSTGRES_HOST = 'localhost', // default value - if the var was not passed as arg
-  POSTGRES_PORT = '5432', // default value
+  POSTGRES_HOST = 'localhost',
+  POSTGRES_PORT = '5432',
+  DATABASE_URL,
 } = process.env;
 
 const dbUrl =
-  process.env.DATABASE_URL ||
-  `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}`;
+  DATABASE_URL ||
+  `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?sslmode=require`;
+
+const connectionConfig = {
+  connectionString: dbUrl,
+  ssl: { rejectUnauthorized: false },
+};
+
 const migrations = {
   directory: path.join(__dirname, 'db', 'migrations'),
 };
@@ -44,30 +50,22 @@ const shared = {
 const configObject = {
   docker: {
     client: 'pg',
-    connection: dbUrl,
+    connection: connectionConfig,
     ...shared,
   },
   development: {
     client: 'pg',
-    connection: dbUrl,
-    ...shared,
-    pool: {
-      min: 2,
-      max: 10,
-    },
-  },
-  test: {
-    client: 'sqlite3',
-    connection: ':memory:',
-    debug: true,
+    connection: connectionConfig,
     ...shared,
   },
   production: {
     client: 'pg',
-    connection: {
-      connectionString: dbUrl,
-      ssl: { rejectUnauthorized: false },
-    },
+    connection: connectionConfig,
+    ...shared,
+  },
+  test: {
+    client: 'sqlite3',
+    connection: ':memory:',
     ...shared,
   },
 };
