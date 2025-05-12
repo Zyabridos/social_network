@@ -1,15 +1,16 @@
-NEXT_PUBLIC_API_URL ?= http://localhost:5001/api
-NEXT_PUBLIC_API_BASE ?= http://localhost:5001
+frontend_api_host ?= localhost
+backend_port ?= 5001
 
 # Docker commands
 
 docker-build-front:
 	docker build \
-		-t social-network-frontend \
+		-t zyabridos/social_network_frontend:latest \
 		-f frontend/Dockerfile.production \
-		--build-arg NEXT_PUBLIC_API_URL=$(NEXT_PUBLIC_API_URL) \
-		--build-arg NEXT_PUBLIC_API_BASE=$(NEXT_PUBLIC_API_BASE) \
+		--build-arg NEXT_PUBLIC_API_URL=http://$(frontend_api_host):$(backend_port)/api \
+		--build-arg NEXT_PUBLIC_API_BASE=http://$(frontend_api_host):$(backend_port) \
 		frontend
+
 
 docker-build-back:
 	cd backend && docker build -t social-network-backend -f Dockerfile.production .

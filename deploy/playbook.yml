@@ -19,7 +19,7 @@
         - { src: "templates/frontend.env.j2", dest: "/root/frontend.env" }
       tags: deploy
 
-    - name: Remove existing Frontend and Backend containers
+    - name: Remove existing containers
       community.docker.docker_container:
         name: "{{ item }}"
         state: absent
@@ -29,10 +29,21 @@
       failed_when: false
       tags: deploy
 
+    - name: Build Frontend image with build args
+      community.docker.docker_image:
+        name: "{{ frontend_image }}"
+        build:
+          path: /opt/social_network/frontend
+          dockerfile: Dockerfile.production
+          args:
+            NEXT_PUBLIC_API_URL: "http://{{ inventory_hostname }}:{{ backend_port }}/api"
+            NEXT_PUBLIC_API_BASE: "http://{{ inventory_hostname }}:{{ backend_port }}"
+
     - name: Deploy Frontend container
       community.docker.docker_container:
         name: frontend
         image: "{{ frontend_image }}"
+        # image: zyabridos/social_network_frontend:latest
         restart_policy: always
         ports:
           - "{{ frontend_port }}:3000"
@@ -53,6 +64,12 @@
       community.docker.docker_container_exec:
         container: backend
         command: node dist/scripts/migrate.js
+      tags: deploy
+
+    - name: Run DB seeds inside backend container
+      community.docker.docker_container_exec:
+        container: backend
+        command: node dist/scripts/seed.js
       tags: deploy
 
 - name: Install Datadog Agent

@@ -16,18 +16,15 @@ services:
     env_file:
       - backend/.env.docker
     container_name: social_network-backend-1
-
+  
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.production
-      args:
-        NEXT_PUBLIC_API_URL: http://backend:5001/api
-        NEXT_PUBLIC_API_BASE: http://backend:5001
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-    env_file:
-      - frontend/.env.docker
-    container_name: social_network-frontend-1
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile.production
+      ports:
+        - "3000:3000"
+      depends_on:
+        - backend
+      env_file:
+        - frontend/.env.docker
+      container_name: social_network-frontend-1
